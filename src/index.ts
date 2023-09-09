@@ -16,7 +16,7 @@ class Bot {
         this.bot.use(
             new LocalSession({ database: "sessions.json" }).middleware()
         );
-        this.bot.use(new Stage<any>([]).middleware());
+        this.bot.use(new Stage<unknown>([]).middleware());
     }
 
     init() {
