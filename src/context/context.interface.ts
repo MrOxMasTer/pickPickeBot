@@ -1,13 +1,13 @@
 import { Context } from "telegraf";
 
 export interface SessionData {
-  courseLike: boolean;
+    courseLike: boolean;
 }
 
 type BaseBotContext = Context;
 
 export interface IBotContext extends BaseBotContext {
-  session: SessionData;
+    session: SessionData;
 }
 
 // export type BaseBotContext = SessionContext<SceneSession<IBotContext>> & {
