@@ -1,27 +1,29 @@
-import { Context } from "telegraf";
+import { Context, Scenes } from "telegraf";
 
-export interface SessionData {
-    courseLike: boolean;
+interface ExtWizardSession extends Scenes.WizardSessionData {
+    email: string;
+    nickname: string;
+    password: string;
 }
 
-type BaseBotContext = Context;
-
-export interface IBotContext extends BaseBotContext {
-    session: SessionData;
+interface Todo {
+    id: string;
+    value: string;
+    isDone: boolean;
 }
 
-// export type BaseBotContext = SessionContext<SceneSession<IBotContext>> & {
-//   scene: SceneContextScene<
-//     SessionContext<SceneSession<IBotContext>>,
-//     IBotContext
-//   >;
-// } & Context;
+interface SceneState {
+    currentTodo: string;
+}
 
-// export type TBaseBotContext = IBotContext & {
-//   scene: SceneContextScene<
-//     SessionContext<SceneSession<IBotContext>>,
-//     IBotContext
-//   >;
-// };
+export interface ExtSession extends Scenes.WizardSession<ExtWizardSession> {
+    todoList: Todo[];
+}
 
-// export interface IBotContextScene extends
+export interface IBotContext extends Context {
+    session: ExtSession;
+    scene: Scenes.SceneContextScene<IBotContext, ExtWizardSession> & {
+        state: SceneState;
+    };
+    wizard: Scenes.WizardContextWizard<IBotContext>;
+}
