@@ -5,3 +5,5 @@ sessions.json
 
 .env
 .env.local
+
+/prisma/migrations

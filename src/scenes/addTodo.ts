@@ -2,29 +2,30 @@ import { nanoid } from "nanoid";
 import { Markup, Scenes } from "telegraf";
 import { message } from "telegraf/filters";
 import { IBotContext } from "../context/context.interface";
+import { prisma } from "../database/prisma.service";
 
 const addTodoScene = new Scenes.BaseScene<IBotContext>("addTodo");
 
 addTodoScene.enter((ctx) =>
-    ctx.reply("напиши задачу: ", Markup.keyboard(["Отменить ❌"]))
+    ctx.reply("напиши задачу: ", Markup.keyboard(["Отменить ❌"]).resize())
 );
 
 addTodoScene.hears("Отменить ❌", (ctx) => {
     return ctx.scene.enter("start");
 });
 
-addTodoScene.hears("Добавить ✅", (ctx) => {
+addTodoScene.hears("Добавить ✅", async (ctx) => {
     const todo = ctx.scene.state.currentTodo;
 
     if (todo) {
-        ctx.session.todoList = [
-            ...(ctx.session.todoList || []),
-            {
+        await prisma.todo.create({
+            data: {
                 id: nanoid(),
                 value: todo,
                 isDone: false,
+                userId: ctx.from.id,
             },
-        ];
+        });
     } else {
         ctx.reply("Сообщение не должно быть пустым");
     }
@@ -41,7 +42,10 @@ addTodoScene.on(message("text"), (ctx) => {
 
     return ctx.sendMessage(
         "Что бы вы хотели дальше сделать?",
-        Markup.keyboard([["Добавить ✅", "Отменить ❌"], ["Изменить 🔩"]])
+        Markup.keyboard([
+            ["Добавить ✅", "Отменить ❌"],
+            ["Изменить 🔩"],
+        ]).resize()
     );
 });
 

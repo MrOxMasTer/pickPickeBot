@@ -1,29 +1,33 @@
-import { Scenes, Telegraf } from "telegraf";
-import LocalSession from "telegraf-session-local";
+import { Scenes, Telegraf, session } from "telegraf";
 import { useNewReplies } from "telegraf/future";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import { StopCommand } from "./commands/stop.command";
 import { IConfigService } from "./config/config.interface";
 import { ConfigService } from "./config/config.service";
-import { ExtSession, IBotContext } from "./context/context.interface";
+import { IBotContext } from "./context/context.interface";
 import { addTodoScene } from "./scenes/addTodo";
+import { deleteTodoScene } from "./scenes/deleteTodo";
+import { markTodoScene } from "./scenes/markTodo";
 import { startScene } from "./scenes/start";
+import { viewTodoListScene } from "./scenes/viewTodoList";
 
 class Bot {
     bot: Telegraf<IBotContext>;
-    localSession: LocalSession<ExtSession>;
     scenes: Scenes.Stage<IBotContext, Scenes.SceneSessionData>;
     commands: Command[] = [];
 
     constructor(private readonly configService: IConfigService) {
         this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"));
-        this.localSession = new LocalSession<ExtSession>({
-            database: "sessions.json",
-        });
-        this.scenes = new Scenes.Stage<IBotContext>([startScene, addTodoScene]);
+        this.scenes = new Scenes.Stage<IBotContext>([
+            startScene,
+            addTodoScene,
+            viewTodoListScene,
+            markTodoScene,
+            deleteTodoScene,
+        ]);
 
-        this.bot.use(this.localSession.middleware());
+        this.bot.use(session());
         this.bot.use(this.scenes.middleware());
         this.bot.use(useNewReplies());
     }

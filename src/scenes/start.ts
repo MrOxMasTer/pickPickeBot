@@ -4,17 +4,17 @@ import { IBotContext } from "../context/context.interface";
 const startScene = new Scenes.BaseScene<IBotContext>("start");
 
 startScene.enter((ctx) => {
-    ctx.reply(
-        `Добро пожаловать в ваш список дел, ${ctx.from?.first_name}`,
-        Markup.keyboard(["📃 Посмотреть список задач", "📝 Добавить задачу"])
+    return ctx.sendMessage(
+        `Что предпочетаете сделать?`,
+        Markup.keyboard([
+            "📃 Посмотреть список задач",
+            "📝 Добавить задачу",
+        ]).resize()
     );
 });
 
-startScene.hears("📃 Посмотреть список задач", async (ctx) => {
-    await ctx.reply("список: ");
-    ctx.session.todoList.forEach(({ value, isDone }) =>
-        ctx.reply(`${value} ${isDone ? "✅" : ""}`)
-    );
+startScene.hears("📃 Посмотреть список задач", (ctx) => {
+    ctx.scene.enter("viewTodoList");
 });
 
 startScene.hears("📝 Добавить задачу", (ctx) => {
