@@ -12,7 +12,7 @@ markTodoScene.enter(async (ctx) => {
         },
     });
 
-    const inlineButtonTodoList = todoList.map((item, index) =>
+    const inlineButtonTodoList = todoList.map((_, index) =>
         Markup.button.callback(`${index + 1}`, `${index + 1}`)
     );
 
