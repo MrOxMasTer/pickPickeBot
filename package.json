@@ -10,7 +10,7 @@
     "start": "node ./dist/index.js",
     "ts-node": "npx ts-node ./src/index.ts",
     "migrateDev": "npx prisma migrate dev",
-    "migrateDeploy": "npm prisma migrate deploy"
+    "migrate": "npx prisma migrate deploy"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
