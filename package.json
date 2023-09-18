@@ -5,10 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --ignore sessions.json ./dist/index.js",
+    "buildW": "tsc -w",
+    "build": "tsc",
     "start": "node ./dist/index.js",
-    "tsW": "tsc -w",
-    "ts-node": "npx ts-node index.ts",
-    "migrateDev": "npx prisma migrate dev"
+    "ts-node": "npx ts-node ./src/index.ts",
+    "migrate": "npx prisma migrate dev"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
