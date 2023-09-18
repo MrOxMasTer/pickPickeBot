@@ -5,7 +5,7 @@ const startScene = new Scenes.BaseScene<IBotContext>("start");
 
 startScene.enter((ctx) => {
     return ctx.sendMessage(
-        `Что предпочетаете сделать?`,
+        `Что предпочитаете сделать?`,
         Markup.keyboard([
             "📃 Посмотреть список задач",
             "📝 Добавить задачу",
