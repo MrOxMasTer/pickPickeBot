@@ -1,28 +1,30 @@
 {
-    "name": "pickpickebot",
-    "version": "1.0.0",
-    "main": "index.ts",
-    "license": "MIT",
-    "scripts": {
-        "dev": "nodemon --ignore sessions.json ./dist/index.js",
-        "start": "node ./dist/index.js",
-        "build": "tsc -w"
-    },
-    "devDependencies": {
-        "@types/dotenv": "^8.2.0",
-        "@types/node": "^20.5.9",
-        "@typescript-eslint/eslint-plugin": "^6.5.0",
-        "@typescript-eslint/parser": "^6.5.0",
-        "dotenv": "^16.3.1",
-        "eslint": "^8.48.0",
-        "nodemon": "^3.0.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
-        "@prisma/client": "^5.2.0",
-        "nanoid": "3.3.6",
-        "pg": "^8.11.3",
-        "telegraf": "^4.13.1"
-    }
+  "name": "pickpickebot",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --ignore sessions.json ./dist/index.js",
+    "start": "node ./dist/index.js",
+    "tsW": "tsc -w",
+    "ts-node": "npx ts-node index.ts",
+    "migrateDev": "npx prisma migrate dev"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^20.5.9",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.48.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.2.0",
+    "nanoid": "3.3.6",
+    "pg": "^8.11.3",
+    "telegraf": "^4.13.1"
+  }
 }
