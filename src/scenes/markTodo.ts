@@ -47,7 +47,7 @@ markTodoScene.on(callbackQuery("data"), async (ctx) => {
         },
     });
 
-    ctx.scene.enter("viewTodoList");
+    return ctx.scene.enter("viewTodoList");
 });
 
 export { markTodoScene };

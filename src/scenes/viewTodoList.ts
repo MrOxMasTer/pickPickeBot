@@ -14,9 +14,9 @@ viewTodoListScene.enter(async (ctx) => {
 
     if (todoList.length === 0) {
         await ctx.sendMessage(`В Вашем списке ничего нет`);
-        ctx.scene.enter("start");
+        return ctx.scene.enter("start");
     } else {
-        ctx.sendMessage(
+        return ctx.sendMessage(
             `${todoList.reduce(
                 (acc: string, { value, isDone }: Todo, index: number) =>
                     acc + `${index + 1}. ${value} ${isDone ? "✅" : ""}\n`,
@@ -31,15 +31,15 @@ viewTodoListScene.enter(async (ctx) => {
 });
 
 viewTodoListScene.hears("Отметить ✅", (ctx) => {
-    ctx.scene.enter("markTodo");
+    return ctx.scene.enter("markTodo");
 });
 
 viewTodoListScene.hears("Удалить ❌", (ctx) => {
-    ctx.scene.enter("deleteTodo");
+    return ctx.scene.enter("deleteTodo");
 });
 
 viewTodoListScene.hears("Выйти 🔙", (ctx) => {
-    ctx.scene.enter("start");
+    return ctx.scene.enter("start");
 });
 
 export { viewTodoListScene };

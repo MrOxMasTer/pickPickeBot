@@ -14,11 +14,11 @@ startScene.enter((ctx) => {
 });
 
 startScene.hears("📃 Посмотреть список задач", (ctx) => {
-    ctx.scene.enter("viewTodoList");
+    return ctx.scene.enter("viewTodoList");
 });
 
 startScene.hears("📝 Добавить задачу", (ctx) => {
-    ctx.scene.enter("addTodo");
+    return ctx.scene.enter("addTodo");
 });
 
 // startScene.on(message("text"), (ctx) => {

@@ -30,7 +30,7 @@ addTodoScene.hears("Добавить ✅", async (ctx) => {
             },
         });
     } else {
-        ctx.reply("Сообщение не должно быть пустым");
+        await ctx.sendMessage("Сообщение не должно быть пустым");
     }
 
     return ctx.scene.enter("start");
