@@ -14,8 +14,8 @@ deleteTodoScene.enter(async (ctx) => {
     });
 
     if (todoList.length === 0) {
-        ctx.sendMessage("В вашем списке ничего нет");
-        ctx.scene.enter("start");
+        await ctx.sendMessage("В вашем списке ничего нет");
+        return ctx.scene.enter("start");
     }
 
     const inlineButtonTodoList = todoList.map((_: Todo, index: number) =>
