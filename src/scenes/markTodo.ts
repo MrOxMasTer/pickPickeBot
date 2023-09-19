@@ -7,39 +7,39 @@ import { prisma } from "../database/prisma.service";
 const markTodoScene = new Scenes.BaseScene<IBotContext>("markTodo");
 
 markTodoScene.enter(async (ctx) => {
-  const todoList = await prisma.todo.findMany({
-    where: {
-      userId: ctx.from?.id,
-    },
-  });
+    const todoList = await prisma.todo.findMany({
+        where: {
+            userId: ctx.from?.id,
+        },
+    });
 
-  const inlineButtonTodoList = todoList.map((_: Todo, index: number) =>
-    Markup.button.callback(`${index + 1}`, `${index + 1}`)
-  );
+    const inlineButtonTodoList = todoList.map((_: Todo, index: number) =>
+        Markup.button.callback(`${index + 1}`, `${index + 1}`)
+    );
 
-  ctx.reply("Какую?", Markup.inlineKeyboard(inlineButtonTodoList));
+    ctx.sendMessage("Какую?", Markup.inlineKeyboard(inlineButtonTodoList));
 });
 
 markTodoScene.on(callbackQuery("data"), async (ctx) => {
-  const result = Number(ctx.callbackQuery.data) - 1;
+    const result = Number(ctx.callbackQuery.data) - 1;
 
-  const todoList = await prisma.todo.findMany({
-    where: {
-      userId: ctx.from?.id,
-    },
-  });
+    const todoList = await prisma.todo.findMany({
+        where: {
+            userId: ctx.from?.id,
+        },
+    });
 
-  await prisma.todo.update({
-    where: {
-      id: todoList[result].id,
-      userId: ctx.from?.id,
-    },
-    data: {
-      isDone: true,
-    },
-  });
+    await prisma.todo.update({
+        where: {
+            id: todoList[result].id,
+            userId: ctx.from?.id,
+        },
+        data: {
+            isDone: true,
+        },
+    });
 
-  ctx.scene.enter("viewTodoList");
+    ctx.scene.enter("viewTodoList");
 });
 
 export { markTodoScene };

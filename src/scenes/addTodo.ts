@@ -7,7 +7,10 @@ import { prisma } from "../database/prisma.service";
 const addTodoScene = new Scenes.BaseScene<IBotContext>("addTodo");
 
 addTodoScene.enter((ctx) =>
-    ctx.reply("напишите задачу: ", Markup.keyboard(["Отменить ❌"]).resize())
+    ctx.sendMessage(
+        "напишите задачу: ",
+        Markup.keyboard(["Отменить ❌"]).resize()
+    )
 );
 
 addTodoScene.hears("Отменить ❌", (ctx) => {

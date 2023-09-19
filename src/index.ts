@@ -2,6 +2,8 @@ import { Scenes, Telegraf, session } from "telegraf";
 import { useNewReplies } from "telegraf/future";
 import { AddTodoCommand } from "./commands/addTodo.command";
 import { Command } from "./commands/command.class";
+import { DeleteTodoCommand } from "./commands/deleteTodo.command";
+import { MarkTodoCommand } from "./commands/markTodo.command";
 import { StartCommand } from "./commands/start.command";
 import { StopCommand } from "./commands/stop.command";
 import { ViewListCommand } from "./commands/viewList.command";
@@ -40,14 +42,14 @@ class Bot {
             new StopCommand(this.bot),
             new ViewListCommand(this.bot),
             new AddTodoCommand(this.bot),
+            new DeleteTodoCommand(this.bot),
+            new MarkTodoCommand(this.bot),
         ];
         for (const command of this.commands) {
             command.handle();
         }
 
         this.bot.launch();
-
-        // this.bot.on(message())
 
         process.once("SIGINT", () => this.bot.stop("SIGINT"));
         process.once("SIGTERM", () => this.bot.stop("SIGTERM"));
@@ -59,7 +61,9 @@ const bot = new Bot(new ConfigService());
 bot.init();
 
 // `
-//     start - запуск / перезапуск бота
-//     addtodo - добавить задачу
-//     viewlist - посмотреть список дел
+// start - запуск / перезапуск бота
+// viewlist - посмотреть список дел
+// addtodo - добавить задачу
+// marktodo - отметить задачу
+// deletetodo - удалить задачу
 // `;
