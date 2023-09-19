@@ -31,7 +31,7 @@ deleteTodoScene.enter(async (ctx) => {
 });
 
 deleteTodoScene.hears("Отменить ❌", (ctx) => {
-    return ctx.scene.enter("start");
+    return ctx.scene.enter("viewTodoList");
 });
 
 deleteTodoScene.on(callbackQuery("data"), async (ctx) => {
