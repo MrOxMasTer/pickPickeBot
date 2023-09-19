@@ -1,8 +1,10 @@
 import { Scenes, Telegraf, session } from "telegraf";
 import { useNewReplies } from "telegraf/future";
+import { AddTodoCommand } from "./commands/addTodo.command";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import { StopCommand } from "./commands/stop.command";
+import { ViewListCommand } from "./commands/viewList.command";
 import { IConfigService } from "./config/config.interface";
 import { ConfigService } from "./config/config.service";
 import { IBotContext } from "./context/context.interface";
@@ -33,12 +35,19 @@ class Bot {
     }
 
     init() {
-        this.commands = [new StartCommand(this.bot), new StopCommand(this.bot)];
+        this.commands = [
+            new StartCommand(this.bot),
+            new StopCommand(this.bot),
+            new ViewListCommand(this.bot),
+            new AddTodoCommand(this.bot),
+        ];
         for (const command of this.commands) {
             command.handle();
         }
 
         this.bot.launch();
+
+        // this.bot.on(message())
 
         process.once("SIGINT", () => this.bot.stop("SIGINT"));
         process.once("SIGTERM", () => this.bot.stop("SIGTERM"));
