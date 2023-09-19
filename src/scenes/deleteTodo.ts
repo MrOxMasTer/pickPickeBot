@@ -13,6 +13,11 @@ deleteTodoScene.enter(async (ctx) => {
         },
     });
 
+    if (todoList.length === 0) {
+        ctx.sendMessage("В вашем списке ничего нет");
+        ctx.scene.enter("start");
+    }
+
     const inlineButtonTodoList = todoList.map((_: Todo, index: number) =>
         Markup.button.callback(`${index + 1}`, `${index + 1}`)
     );
