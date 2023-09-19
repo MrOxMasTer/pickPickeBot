@@ -4,7 +4,7 @@
     "main": "index.ts",
     "license": "MIT",
     "scripts": {
-        "dev": "nodemon --ignore sessions.json ./dist/index.js",
+        "dev": "nodemon --ignore sessions.json ./build/index.js",
         "buildW": "tsc -w",
         "build": "tsc",
         "start": "node ./build/index.js",

@@ -11,17 +11,13 @@ export class StartCommand extends Command {
     handle(): void {
         this.bot.start(async (ctx) => {
             try {
-                try {
-                    const user = await prisma.user.findUnique({
-                        where: {
-                            id: ctx.from.id,
-                        },
-                    });
+                const user = await prisma.user.findUnique({
+                    where: {
+                        id: ctx.from.id,
+                    },
+                });
 
-                    if (!user) {
-                        throw new Error("Пользователь не найден!");
-                    }
-                } catch (e) {
+                if (!user) {
                     await prisma.user.create({
                         data: { id: ctx.from.id },
                     });

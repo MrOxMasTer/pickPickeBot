@@ -4,10 +4,6 @@ import { IBotContext } from "../context/context.interface";
 const startScene = new Scenes.BaseScene<IBotContext>("start");
 
 startScene.enter((ctx) => {
-    // try {
-    //     await prisma.
-    // } catch (e) {}
-
     return ctx.sendMessage(
         `Что предпочитаете сделать?`,
         Markup.keyboard([

@@ -13,13 +13,14 @@ viewTodoListScene.enter(async (ctx) => {
     });
 
     if (todoList.length === 0) {
-        ctx.reply(`В Вашем списке ничего нет`);
+        await ctx.reply(`В Вашем списке ничего нет`);
         ctx.scene.enter("start");
     } else {
         ctx.reply(
-            `${todoList.map(
-                ({ value, isDone }: Todo, index: number) =>
-                    `${index + 1}. ${value} ${isDone ? "✅" : " "}`
+            `${todoList.reduce(
+                (acc: string, { value, isDone }: Todo, index: number) =>
+                    acc + `${index + 1}. ${value} ${isDone ? "✅" : ""}\n`,
+                ""
             )}`,
             Markup.keyboard([
                 ["Отметить ✅", "Удалить ❌"],
