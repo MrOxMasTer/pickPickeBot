@@ -22,7 +22,10 @@ markTodoScene.enter(async (ctx) => {
         Markup.button.callback(`${index + 1}`, `${index + 1}`)
     );
 
-    ctx.sendMessage("Какую?", Markup.inlineKeyboard(inlineButtonTodoList));
+    return ctx.sendMessage(
+        "Какую?",
+        Markup.inlineKeyboard(inlineButtonTodoList)
+    );
 });
 
 markTodoScene.on(callbackQuery("data"), async (ctx) => {
