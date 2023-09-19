@@ -19,7 +19,7 @@ viewTodoListScene.enter(async (ctx) => {
         ctx.reply(
             `${todoList.map(
                 ({ value, isDone }: Todo, index: number) =>
-                    `${index + 1}. ${value} ${isDone ? "✅" : " "}\n`
+                    `${index + 1}. ${value} ${isDone ? "✅" : " "}`
             )}`,
             Markup.keyboard([
                 ["Отметить ✅", "Удалить ❌"],
