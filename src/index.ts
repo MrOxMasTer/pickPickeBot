@@ -1,4 +1,3 @@
-import process from "process";
 import { Scenes, Telegraf, session } from "telegraf";
 import { useNewReplies } from "telegraf/future";
 import { AddTodoCommand } from "./commands/addTodo.command";
@@ -23,7 +22,7 @@ class Bot {
     commands: Command[] = [];
 
     constructor(private readonly configService: IConfigService) {
-        this.bot = new Telegraf<IBotContext>(`${process.env.TOKEN}`);
+        this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"));
         this.scenes = new Scenes.Stage<IBotContext>([
             startScene,
             addTodoScene,
