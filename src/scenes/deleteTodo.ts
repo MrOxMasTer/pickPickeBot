@@ -24,13 +24,15 @@ deleteTodoScene.enter(async (ctx) => {
 
     return ctx.sendMessage("Какую?", {
         reply_markup: {
-            inline_keyboard: [[...inlineButtonTodoList]],
-            keyboard: [[{ text: "Отменить ❌" }]],
+            inline_keyboard: [
+                [...inlineButtonTodoList],
+                [Markup.button.callback("Отменить", "Отменить")],
+            ],
         },
     });
 });
 
-deleteTodoScene.hears("Отменить ❌", (ctx) => {
+deleteTodoScene.action("Отменить", (ctx) => {
     return ctx.scene.enter("viewTodoList");
 });
 
