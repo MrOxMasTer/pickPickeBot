@@ -6,36 +6,39 @@ import { prisma } from "../database/prisma.service";
 const viewTodoListScene = new Scenes.BaseScene<IBotContext>("viewTodoList");
 
 viewTodoListScene.enter(async (ctx) => {
-  const todoList = await prisma.todo.findMany({
-    where: {
-      userId: ctx.from?.id,
-    },
-  });
+    const todoList = await prisma.todo.findMany({
+        where: {
+            userId: ctx.from?.id,
+        },
+    });
 
-  if (todoList.length === 0) {
-    ctx.reply(`В Вашем списке ничего нет`);
-    ctx.scene.enter("start");
-  } else {
-    ctx.reply(
-      `${todoList.map(
-        ({ value, isDone }: Todo, index: number) =>
-          `${index + 1}. ${value} ${isDone ? "✅" : ""} \n`
-      )}`,
-      Markup.keyboard([["Отметить ✅", "Удалить ❌"], ["Выйти 🔙"]]).resize()
-    );
-  }
+    if (todoList.length === 0) {
+        ctx.reply(`В Вашем списке ничего нет`);
+        ctx.scene.enter("start");
+    } else {
+        ctx.reply(
+            `${todoList.map(
+                ({ value, isDone }: Todo, index: number) =>
+                    `${index + 1}. ${value} ${isDone ? "✅" : " "}\n`
+            )}`,
+            Markup.keyboard([
+                ["Отметить ✅", "Удалить ❌"],
+                ["Выйти 🔙"],
+            ]).resize()
+        );
+    }
 });
 
 viewTodoListScene.hears("Отметить ✅", (ctx) => {
-  ctx.scene.enter("markTodo");
+    ctx.scene.enter("markTodo");
 });
 
 viewTodoListScene.hears("Удалить ❌", (ctx) => {
-  ctx.scene.enter("deleteTodo");
+    ctx.scene.enter("deleteTodo");
 });
 
 viewTodoListScene.hears("Выйти 🔙", (ctx) => {
-  ctx.scene.enter("start");
+    ctx.scene.enter("start");
 });
 
 export { viewTodoListScene };
