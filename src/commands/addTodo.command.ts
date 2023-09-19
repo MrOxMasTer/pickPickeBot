@@ -8,7 +8,7 @@ export class AddTodoCommand extends Command {
     }
 
     handle(): void {
-        this.bot.command("addTodo", (ctx) => {
+        this.bot.command("addtodo", (ctx) => {
             ctx.scene.enter("addTodo");
         });
     }

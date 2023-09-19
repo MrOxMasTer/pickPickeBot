@@ -8,7 +8,7 @@ export class ViewListCommand extends Command {
     }
 
     handle(): void {
-        this.bot.command("viewList", (ctx) => {
+        this.bot.command("viewlist", (ctx) => {
             ctx.scene.enter("viewTodoList");
         });
     }

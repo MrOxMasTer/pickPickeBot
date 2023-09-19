@@ -57,3 +57,9 @@ class Bot {
 const bot = new Bot(new ConfigService());
 
 bot.init();
+
+// `
+//     start - запуск / перезапуск бота
+//     addtodo - добавить задачу
+//     viewlist - посмотреть список дел
+// `;
